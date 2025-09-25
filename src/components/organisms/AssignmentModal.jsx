@@ -110,17 +110,17 @@ if (!validateForm()) return
       // Check if assignment priority is High and send email notification
       if (assignmentData.priority === 'high') {
         try {
-          const { ApperClient } = window.ApperSDK;
+const { ApperClient } = window.ApperSDK;
           const apperClient = new ApperClient({
             apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
             apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
           });
-
+          
           await apperClient.functions.invoke(import.meta.env.VITE_SEND_HIGH_PRIORITY_ASSIGNMENT_EMAIL, {
             body: {
-              assignmentTitle: assignmentData.title,
-              assignmentDescription: assignmentData.description,
-              dueDate: assignmentData.dueDate,
+              studentEmail: assignmentData.studentEmail || 'student@example.com',
+              assignmentTitle: assignmentData.title || 'New Assignment',
+              dueDate: assignmentData.dueDate || new Date().toISOString(),
               courseName: assignmentData.courseName || 'Not specified',
               priority: assignmentData.priority
             },
