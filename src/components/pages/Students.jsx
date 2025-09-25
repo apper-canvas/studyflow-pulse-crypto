@@ -31,7 +31,6 @@ export default function Students() {
     major: '',
 year: '',
     gpa: '',
-scienceMarks: '',
     mathsMarks: '',
     status: 'Active'
   })
@@ -93,7 +92,6 @@ setFormData(student ? {
       major: student.major || '',
       year: student.year || '',
       gpa: student.gpa || '',
-scienceMarks: student.scienceMarks || '',
       mathsMarks: student.mathsMarks || '',
       status: student.status || 'Active'
     } : {
@@ -102,7 +100,6 @@ scienceMarks: student.scienceMarks || '',
       major: '',
       year: '',
       gpa: '',
-scienceMarks: '',
       mathsMarks: '',
       status: 'Active'
     })
@@ -118,7 +115,6 @@ scienceMarks: '',
       major: '',
       year: '',
 gpa: '',
-      scienceMarks: '',
       mathsMarks: '',
       status: 'Active'
     })
@@ -137,10 +133,6 @@ if (formData.gpa && (isNaN(formData.gpa) || formData.gpa < 0 || formData.gpa > 4
       return
     }
 
-if (formData.scienceMarks && (isNaN(formData.scienceMarks) || formData.scienceMarks < 0 || formData.scienceMarks > 100)) {
-      toast.error('Science marks must be a number between 0 and 100')
-      return
-    }
 
     if (formData.mathsMarks && (isNaN(formData.mathsMarks) || formData.mathsMarks < 0 || formData.mathsMarks > 100)) {
       toast.error('Maths marks must be a number between 0 and 100')
@@ -324,11 +316,6 @@ if (formData.scienceMarks && (isNaN(formData.scienceMarks) || formData.scienceMa
                     <span className="font-medium">{student.gpa}</span>
                   </div>
                 )}
-{student.scienceMarks && (
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Science Marks:</span>
-                    <span className="font-medium">{student.scienceMarks}</span>
-                  </div>
                 )}
                 {student.mathsMarks && (
                   <div className="flex justify-between text-sm">
@@ -440,19 +427,6 @@ value={formData.year || ''}
 />
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="scienceMarks">Science Marks</Label>
-                  <Input
-                    id="scienceMarks"
-                    type="number"
-                    placeholder="Enter science marks (0-100)"
-                    value={formData.scienceMarks}
-                    onChange={(e) => setFormData(prev => ({ ...prev, scienceMarks: e.target.value }))}
-                    min="0"
-                    max="100"
-                    step="0.1"
-                  />
-</div>
 
                 <div>
                   <Label>Maths Marks (Optional)</Label>
