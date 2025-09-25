@@ -1,4 +1,6 @@
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
+import React from "react";
+import Error from "@/components/ui/Error";
 
 export const studentService = {
   async getAll() {
@@ -9,7 +11,7 @@ export const studentService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       })
 
-      const params = {
+const params = {
         fields: [
           {"field": {"Name": "Name"}},
           {"field": {"Name": "name_c"}},
@@ -17,6 +19,7 @@ export const studentService = {
           {"field": {"Name": "major_c"}},
           {"field": {"Name": "year_c"}},
           {"field": {"Name": "gpa_c"}},
+          {"field": {"Name": "science_marks_c"}},
           {"field": {"Name": "status_c"}}
         ]
       }
@@ -27,13 +30,15 @@ export const studentService = {
         return []
       }
 
-      return response.data.map(student => ({
+return response.data.map(student => ({
         Id: student.Id,
         name: student.name_c || '',
         email: student.email_c || '',
         major: student.major_c || '',
         year: student.year_c || '',
         gpa: student.gpa_c || '',
+        scienceMarks: student.science_marks_c || '',
+        mathsMarks: student.maths_marks_c || '',
         status: student.status_c || 'Active'
       }))
     } catch (error) {
@@ -50,7 +55,7 @@ export const studentService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       })
 
-      const params = {
+const params = {
         fields: [
           {"field": {"Name": "Name"}},
           {"field": {"Name": "name_c"}},
@@ -58,6 +63,8 @@ export const studentService = {
           {"field": {"Name": "major_c"}},
           {"field": {"Name": "year_c"}},
           {"field": {"Name": "gpa_c"}},
+          {"field": {"Name": "science_marks_c"}},
+          {"field": {"Name": "maths_marks_c"}},
           {"field": {"Name": "status_c"}}
         ]
       }
@@ -69,13 +76,15 @@ export const studentService = {
       }
 
       const student = response.data
-      return {
+return {
         Id: student.Id,
         name: student.name_c || '',
         email: student.email_c || '',
         major: student.major_c || '',
         year: student.year_c || '',
         gpa: student.gpa_c || '',
+        scienceMarks: student.science_marks_c || '',
+        mathsMarks: student.maths_marks_c || '',
         status: student.status_c || 'Active'
       }
     } catch (error) {
@@ -96,7 +105,7 @@ export const studentService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       })
 
-      const params = {
+const params = {
         records: [{
           Name: studentData.name.trim(),
           name_c: studentData.name.trim(),
@@ -104,6 +113,8 @@ export const studentService = {
           major_c: studentData.major.trim(),
           year_c: studentData.year,
           gpa_c: studentData.gpa ? parseFloat(studentData.gpa) : null,
+          science_marks_c: studentData.scienceMarks ? parseFloat(studentData.scienceMarks) : null,
+          maths_marks_c: studentData.mathsMarks ? parseFloat(studentData.mathsMarks) : null,
           status_c: studentData.status || 'Active'
         }]
       }
@@ -130,13 +141,15 @@ export const studentService = {
         
         if (successful.length > 0) {
           const created = successful[0].data
-          return {
+return {
             Id: created.Id,
             name: created.name_c || '',
             email: created.email_c || '',
             major: created.major_c || '',
             year: created.year_c || '',
             gpa: created.gpa_c || '',
+            scienceMarks: created.science_marks_c || '',
+            mathsMarks: created.maths_marks_c || '',
             status: created.status_c || 'Active'
           }
         }
@@ -160,7 +173,7 @@ export const studentService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       })
 
-      const params = {
+const params = {
         records: [{
           Id: parseInt(id),
           Name: studentData.name.trim(),
@@ -169,6 +182,8 @@ export const studentService = {
           major_c: studentData.major.trim(),
           year_c: studentData.year,
           gpa_c: studentData.gpa ? parseFloat(studentData.gpa) : null,
+          science_marks_c: studentData.scienceMarks ? parseFloat(studentData.scienceMarks) : null,
+          maths_marks_c: studentData.mathsMarks ? parseFloat(studentData.mathsMarks) : null,
           status_c: studentData.status || 'Active'
         }]
       }
@@ -192,8 +207,7 @@ export const studentService = {
             if (record.message) toast.error(record.message)
           })
         }
-        
-        if (successful.length > 0) {
+if (successful.length > 0) {
           const updated = successful[0].data
           return {
             Id: updated.Id,
@@ -202,6 +216,8 @@ export const studentService = {
             major: updated.major_c || '',
             year: updated.year_c || '',
             gpa: updated.gpa_c || '',
+            scienceMarks: updated.science_marks_c || '',
+            mathsMarks: updated.maths_marks_c || '',
             status: updated.status_c || 'Active'
           }
         }
@@ -260,7 +276,7 @@ export const studentService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       })
 
-      const params = {
+const params = {
         fields: [
           {"field": {"Name": "Name"}},
           {"field": {"Name": "name_c"}},
@@ -268,6 +284,8 @@ export const studentService = {
           {"field": {"Name": "major_c"}},
           {"field": {"Name": "year_c"}},
           {"field": {"Name": "gpa_c"}},
+          {"field": {"Name": "science_marks_c"}},
+          {"field": {"Name": "maths_marks_c"}},
           {"field": {"Name": "status_c"}}
         ],
         whereGroups: query ? [{
@@ -286,13 +304,15 @@ export const studentService = {
         return []
       }
 
-      return response.data.map(student => ({
+return response.data.map(student => ({
         Id: student.Id,
         name: student.name_c || '',
         email: student.email_c || '',
         major: student.major_c || '',
         year: student.year_c || '',
         gpa: student.gpa_c || '',
+        scienceMarks: student.science_marks_c || '',
+        mathsMarks: student.maths_marks_c || '',
         status: student.status_c || 'Active'
       }))
     } catch (error) {
@@ -309,7 +329,7 @@ export const studentService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       })
 
-      const params = {
+const params = {
         fields: [
           {"field": {"Name": "Name"}},
           {"field": {"Name": "name_c"}},
@@ -317,6 +337,8 @@ export const studentService = {
           {"field": {"Name": "major_c"}},
           {"field": {"Name": "year_c"}},
           {"field": {"Name": "gpa_c"}},
+          {"field": {"Name": "science_marks_c"}},
+          {"field": {"Name": "maths_marks_c"}},
           {"field": {"Name": "status_c"}}
         ],
         where: [{"FieldName": "status_c", "Operator": "EqualTo", "Values": [status]}]
@@ -328,13 +350,15 @@ export const studentService = {
         return []
       }
 
-      return response.data.map(student => ({
+return response.data.map(student => ({
         Id: student.Id,
         name: student.name_c || '',
         email: student.email_c || '',
         major: student.major_c || '',
         year: student.year_c || '',
         gpa: student.gpa_c || '',
+        scienceMarks: student.science_marks_c || '',
+        mathsMarks: student.maths_marks_c || '',
         status: student.status_c || 'Active'
       }))
     } catch (error) {
@@ -351,7 +375,7 @@ export const studentService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       })
 
-      const params = {
+const params = {
         fields: [
           {"field": {"Name": "Name"}},
           {"field": {"Name": "name_c"}},
@@ -359,6 +383,8 @@ export const studentService = {
           {"field": {"Name": "major_c"}},
           {"field": {"Name": "year_c"}},
           {"field": {"Name": "gpa_c"}},
+          {"field": {"Name": "science_marks_c"}},
+          {"field": {"Name": "maths_marks_c"}},
           {"field": {"Name": "status_c"}}
         ],
         where: [{"FieldName": "major_c", "Operator": "EqualTo", "Values": [major]}]
@@ -370,13 +396,15 @@ export const studentService = {
         return []
       }
 
-      return response.data.map(student => ({
+return response.data.map(student => ({
         Id: student.Id,
         name: student.name_c || '',
         email: student.email_c || '',
         major: student.major_c || '',
         year: student.year_c || '',
         gpa: student.gpa_c || '',
+        scienceMarks: student.science_marks_c || '',
+        mathsMarks: student.maths_marks_c || '',
         status: student.status_c || 'Active'
       }))
     } catch (error) {
