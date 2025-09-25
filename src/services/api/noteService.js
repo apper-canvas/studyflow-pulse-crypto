@@ -287,4 +287,3 @@ const noteService = {
 }
 
 export default noteService
-export default noteService
