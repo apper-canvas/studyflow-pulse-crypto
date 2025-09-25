@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import { toast } from 'react-toastify'
-import { Card } from '@/components/atoms/Card'
-import Button from '@/components/atoms/Button'
-import Input from '@/components/atoms/Input'
-import Select from '@/components/atoms/Select'
-import Label from '@/components/atoms/Label'
-import Badge from '@/components/atoms/Badge'
-import ApperIcon from '@/components/ApperIcon'
-import SearchBar from '@/components/molecules/SearchBar'
-import Loading from '@/components/ui/Loading'
-import Empty from '@/components/ui/Empty'
-import Error from '@/components/ui/Error'
-import { studentService } from '@/services/api/studentService'
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { Card } from "@/components/atoms/Card";
+import { studentService } from "@/services/api/studentService";
+import ApperIcon from "@/components/ApperIcon";
+import SearchBar from "@/components/molecules/SearchBar";
+import FormField from "@/components/molecules/FormField";
+import Loading from "@/components/ui/Loading";
+import Empty from "@/components/ui/Empty";
+import Error from "@/components/ui/Error";
+import Button from "@/components/atoms/Button";
+import Input from "@/components/atoms/Input";
+import Badge from "@/components/atoms/Badge";
+import Select from "@/components/atoms/Select";
+import Label from "@/components/atoms/Label";
 
 export default function Students() {
   const [students, setStudents] = useState([])
@@ -30,7 +31,8 @@ export default function Students() {
     major: '',
 year: '',
     gpa: '',
-    scienceMarks: '',
+scienceMarks: '',
+    mathsMarks: '',
     status: 'Active'
   })
 
@@ -91,7 +93,8 @@ setFormData(student ? {
       major: student.major || '',
       year: student.year || '',
       gpa: student.gpa || '',
-      scienceMarks: student.scienceMarks || '',
+scienceMarks: student.scienceMarks || '',
+      mathsMarks: student.mathsMarks || '',
       status: student.status || 'Active'
     } : {
       name: '',
@@ -99,7 +102,8 @@ setFormData(student ? {
       major: '',
       year: '',
       gpa: '',
-      scienceMarks: '',
+scienceMarks: '',
+      mathsMarks: '',
       status: 'Active'
     })
     setShowModal(true)
@@ -113,7 +117,9 @@ setFormData(student ? {
       email: '',
       major: '',
       year: '',
-      gpa: '',
+gpa: '',
+      scienceMarks: '',
+      mathsMarks: '',
       status: 'Active'
     })
   }
@@ -131,11 +137,15 @@ if (formData.gpa && (isNaN(formData.gpa) || formData.gpa < 0 || formData.gpa > 4
       return
     }
 
-    if (formData.scienceMarks && (isNaN(formData.scienceMarks) || formData.scienceMarks < 0 || formData.scienceMarks > 100)) {
+if (formData.scienceMarks && (isNaN(formData.scienceMarks) || formData.scienceMarks < 0 || formData.scienceMarks > 100)) {
       toast.error('Science marks must be a number between 0 and 100')
       return
     }
 
+    if (formData.mathsMarks && (isNaN(formData.mathsMarks) || formData.mathsMarks < 0 || formData.mathsMarks > 100)) {
+      toast.error('Maths marks must be a number between 0 and 100')
+      return
+    }
     try {
       if (editingStudent) {
         const updatedStudent = await studentService.update(editingStudent.Id, formData)
@@ -314,10 +324,16 @@ if (formData.gpa && (isNaN(formData.gpa) || formData.gpa < 0 || formData.gpa > 4
                     <span className="font-medium">{student.gpa}</span>
                   </div>
                 )}
-                {student.scienceMarks && (
+{student.scienceMarks && (
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Science Marks:</span>
                     <span className="font-medium">{student.scienceMarks}</span>
+                  </div>
+                )}
+                {student.mathsMarks && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Maths Marks:</span>
+                    <span className="font-medium">{student.mathsMarks}</span>
                   </div>
                 )}
               </div>
@@ -436,12 +452,25 @@ value={formData.year || ''}
                     max="100"
                     step="0.1"
                   />
+</div>
+
+                <div>
+                  <Label>Maths Marks (Optional)</Label>
+                  <Input
+                    type="number"
+                    step="0.1"
+                    min="0"
+                    max="100"
+                    value={formData.mathsMarks}
+                    onChange={(e) => setFormData(prev => ({ ...prev, mathsMarks: e.target.value }))}
+                    placeholder="Enter maths marks (0-100)"
+                  />
                 </div>
 
                 <div>
                   <Label required>Status</Label>
                   <Select
-value={formData.status || 'Active'}
+                    value={formData.status || 'Active'}
                     onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value }))}
                     required
                   >
