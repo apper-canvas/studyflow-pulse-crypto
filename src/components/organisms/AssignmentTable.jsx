@@ -166,14 +166,14 @@ const AssignmentTable = ({ onEditAssignment, onDeleteAssignment }) => {
               </thead>
               <tbody>
                 {filteredAssignments.map((assignment) => {
-                  const course = getCourseById(assignment.courseId)
+const course = getCourseById(assignment.courseId)
                   const status = getAssignmentStatus(assignment)
                   const dueDate = new Date(assignment.dueDate)
                   
                   return (
                     <tr key={assignment.Id} className="border-b border-gray-100 hover:bg-gray-50">
                       <td className="py-3 px-4">
-                        <div>
+<div>
                           <div className="font-medium text-gray-900">{assignment.title}</div>
                           {assignment.description && (
                             <div className="text-sm text-gray-500 mt-1 truncate max-w-xs">
@@ -183,7 +183,7 @@ const AssignmentTable = ({ onEditAssignment, onDeleteAssignment }) => {
                         </div>
                       </td>
                       <td className="py-3 px-4">
-                        {course && (
+{course && (
                           <div className="flex items-center gap-2">
                             <div 
                               className="w-3 h-3 rounded-full" 
@@ -206,7 +206,7 @@ const AssignmentTable = ({ onEditAssignment, onDeleteAssignment }) => {
                       </td>
                       <td className="py-3 px-4">
                         <Select
-                          value={assignment.status}
+value={assignment.status}
                           onChange={(e) => handleStatusUpdate(assignment.Id, e.target.value)}
                           className="text-sm"
                         >
@@ -216,7 +216,7 @@ const AssignmentTable = ({ onEditAssignment, onDeleteAssignment }) => {
                         </Select>
                       </td>
                       <td className="py-3 px-4">
-                        <span className={`text-sm font-medium ${assignment.grade ? "text-gray-900" : "text-gray-400"}`}>
+<span className={`text-sm font-medium ${assignment.grade ? "text-gray-900" : "text-gray-400"}`}>
                           {assignment.grade ? `${assignment.grade}%` : "Not graded"}
                         </span>
                       </td>
@@ -233,7 +233,7 @@ const AssignmentTable = ({ onEditAssignment, onDeleteAssignment }) => {
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() => handleDelete(assignment.Id)}
+onClick={() => handleDelete(assignment.Id)}
                             className="h-8 w-8 text-error-600 hover:text-error-700 hover:bg-error-50"
                           >
                             <ApperIcon name="Trash2" className="w-4 h-4" />

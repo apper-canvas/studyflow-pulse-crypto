@@ -59,13 +59,13 @@ const Calendar = () => {
   const calendarEnd = endOfWeek(monthEnd)
   const calendarDays = eachDayOfInterval({ start: calendarStart, end: calendarEnd })
 
-  const getAssignmentsForDate = (date) => {
+const getAssignmentsForDate = (date) => {
     return assignments.filter(assignment => 
       isSameDay(new Date(assignment.dueDate), date)
     )
   }
 
-  const getSelectedDateAssignments = () => {
+const getSelectedDateAssignments = () => {
     return getAssignmentsForDate(selectedDate).map(assignment => ({
       ...assignment,
       course: courses.find(c => c.Id === assignment.courseId)
@@ -140,7 +140,7 @@ const Calendar = () => {
                     </div>
                     <div className="space-y-1">
                       {dayAssignments.slice(0, 2).map(assignment => {
-                        const course = courses.find(c => c.Id === assignment.courseId)
+const course = courses.find(c => c.Id === assignment.courseId)
                         return (
                           <div
                             key={assignment.Id}
@@ -185,14 +185,14 @@ const Calendar = () => {
               <div className="space-y-3">
                 {getSelectedDateAssignments().map(assignment => (
                   <div
-                    key={assignment.Id}
+key={assignment.Id}
                     className="p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
                   >
                     <div className="flex items-start justify-between mb-2">
                       <h4 className="font-medium text-gray-900">{assignment.title}</h4>
                       <StatusBadge status={assignment.status} showIcon={false} />
                     </div>
-                    {assignment.course && (
+{assignment.course && (
                       <div className="flex items-center gap-2 mb-2">
                         <div 
                           className="w-3 h-3 rounded-full" 
@@ -201,7 +201,7 @@ const Calendar = () => {
                         <span className="text-sm text-gray-600">{assignment.course.name}</span>
                       </div>
                     )}
-                    <div className="text-sm text-gray-500">
+<div className="text-sm text-gray-500">
                       Due: {format(new Date(assignment.dueDate), "h:mm a")}
                     </div>
                     {assignment.description && (

@@ -83,8 +83,15 @@ export default function Students() {
   }
 
   const openModal = (student = null) => {
-    setEditingStudent(student)
-    setFormData(student ? { ...student } : {
+setEditingStudent(student)
+    setFormData(student ? { 
+      name: student.name || '',
+      email: student.email || '', 
+      major: student.major || '',
+      year: student.year || '',
+      gpa: student.gpa || '',
+      status: student.status || 'Active'
+    } : {
       name: '',
       email: '',
       major: '',
@@ -273,7 +280,7 @@ export default function Students() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredStudents.map(student => (
-            <Card key={student.Id} className="p-6 hover:shadow-lg transition-shadow">
+<Card key={student.Id} className="p-6 hover:shadow-lg transition-shadow">
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900">{student.name}</h3>
@@ -285,7 +292,7 @@ export default function Students() {
               </div>
               
               <div className="space-y-2 mb-4">
-                <div className="flex justify-between text-sm">
+<div className="flex justify-between text-sm">
                   <span className="text-gray-600">Major:</span>
                   <span className="font-medium">{student.major}</span>
                 </div>
@@ -348,9 +355,9 @@ export default function Students() {
                 <div>
                   <Label required>Full Name</Label>
                   <Input
-                    value={formData.name}
+value={formData.name || ''}
                     onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                    placeholder="Enter student's full name"
+                    placeholder="Enter student name"
                     required
                   />
                 </div>
@@ -359,7 +366,7 @@ export default function Students() {
                   <Label required>Email</Label>
                   <Input
                     type="email"
-                    value={formData.email}
+                    value={formData.email || ''}
                     onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                     placeholder="Enter email address"
                     required
@@ -379,7 +386,7 @@ export default function Students() {
                 <div>
                   <Label required>Year</Label>
                   <Select
-                    value={formData.year}
+value={formData.year || ''}
                     onChange={(e) => setFormData(prev => ({ ...prev, year: e.target.value }))}
                     required
                   >
@@ -406,7 +413,7 @@ export default function Students() {
                 <div>
                   <Label required>Status</Label>
                   <Select
-                    value={formData.status}
+value={formData.status || 'Active'}
                     onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value }))}
                     required
                   >

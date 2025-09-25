@@ -88,7 +88,7 @@ const WeeklySchedule = () => {
                 <h4 className="font-semibold text-gray-900 mb-3">{day}</h4>
                 <div className="space-y-2">
                   {items.map((item) => (
-                    <div
+<div
                       key={item.id}
                       className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
                     >
@@ -97,7 +97,7 @@ const WeeklySchedule = () => {
                         style={{ backgroundColor: item.color }}
                       />
                       <div className="flex-1 min-w-0">
-                        <div className="font-medium text-gray-900 truncate">
+<div className="font-medium text-gray-900 truncate">
                           {item.courseName}
                         </div>
                         <div className="text-sm text-gray-500">

@@ -1,200 +1,398 @@
-import mockData from '@/services/mockData/students.json'
 import { toast } from 'react-toastify'
 
-// Helper function to create a copy of the data
-const getData = () => JSON.parse(JSON.stringify(mockData))
-
-// Store for runtime data
-let studentsData = getData()
-
 export const studentService = {
-  // Get all students
-  getAll: async () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(getData())
-      }, 300) // Realistic delay
-    })
+  async getAll() {
+    try {
+      const { ApperClient } = window.ApperSDK
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      })
+
+      const params = {
+        fields: [
+          {"field": {"Name": "Name"}},
+          {"field": {"Name": "name_c"}},
+          {"field": {"Name": "email_c"}},
+          {"field": {"Name": "major_c"}},
+          {"field": {"Name": "year_c"}},
+          {"field": {"Name": "gpa_c"}},
+          {"field": {"Name": "status_c"}}
+        ]
+      }
+
+      const response = await apperClient.fetchRecords('student_c', params)
+
+      if (!response?.data?.length) {
+        return []
+      }
+
+      return response.data.map(student => ({
+        Id: student.Id,
+        name: student.name_c || '',
+        email: student.email_c || '',
+        major: student.major_c || '',
+        year: student.year_c || '',
+        gpa: student.gpa_c || '',
+        status: student.status_c || 'Active'
+      }))
+    } catch (error) {
+      console.error("Error fetching students:", error?.response?.data?.message || error)
+      return []
+    }
   },
 
-  // Get student by ID
-  getById: async (id) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const student = studentsData.find(s => s.Id === parseInt(id))
-        if (student) {
-          resolve({ ...student })
-        } else {
-          reject(new Error('Student not found'))
-        }
-      }, 200)
-    })
+  async getById(id) {
+    try {
+      const { ApperClient } = window.ApperSDK
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      })
+
+      const params = {
+        fields: [
+          {"field": {"Name": "Name"}},
+          {"field": {"Name": "name_c"}},
+          {"field": {"Name": "email_c"}},
+          {"field": {"Name": "major_c"}},
+          {"field": {"Name": "year_c"}},
+          {"field": {"Name": "gpa_c"}},
+          {"field": {"Name": "status_c"}}
+        ]
+      }
+
+      const response = await apperClient.getRecordById('student_c', parseInt(id), params)
+
+      if (!response?.data) {
+        return null
+      }
+
+      const student = response.data
+      return {
+        Id: student.Id,
+        name: student.name_c || '',
+        email: student.email_c || '',
+        major: student.major_c || '',
+        year: student.year_c || '',
+        gpa: student.gpa_c || '',
+        status: student.status_c || 'Active'
+      }
+    } catch (error) {
+      console.error(`Error fetching student ${id}:`, error?.response?.data?.message || error)
+      return null
+    }
   },
 
-  // Create new student
-  create: async (studentData) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        try {
-          // Validate required fields
-          if (!studentData.name || !studentData.email || !studentData.major || !studentData.year) {
-            reject(new Error('Missing required fields'))
-            return
-          }
+  async create(studentData) {
+    try {
+      if (!studentData.name || !studentData.email || !studentData.major || !studentData.year) {
+        throw new Error('Missing required fields')
+      }
 
-          // Check for duplicate email
-          const existingStudent = studentsData.find(s => 
-            s.email.toLowerCase() === studentData.email.toLowerCase()
-          )
-          if (existingStudent) {
-            reject(new Error('A student with this email already exists'))
-            return
-          }
+      const { ApperClient } = window.ApperSDK
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      })
 
-          // Generate new ID
-          const maxId = studentsData.length > 0 
-            ? Math.max(...studentsData.map(s => s.Id)) 
-            : 0
-          
-          const newStudent = {
-            Id: maxId + 1,
-            name: studentData.name.trim(),
-            email: studentData.email.trim().toLowerCase(),
-            major: studentData.major.trim(),
-            year: studentData.year,
-            gpa: studentData.gpa ? parseFloat(studentData.gpa).toFixed(2) : '',
-            status: studentData.status || 'Active'
-          }
+      const params = {
+        records: [{
+          Name: studentData.name.trim(),
+          name_c: studentData.name.trim(),
+          email_c: studentData.email.trim().toLowerCase(),
+          major_c: studentData.major.trim(),
+          year_c: studentData.year,
+          gpa_c: studentData.gpa ? parseFloat(studentData.gpa) : null,
+          status_c: studentData.status || 'Active'
+        }]
+      }
 
-          studentsData.push(newStudent)
-          resolve({ ...newStudent })
-        } catch (error) {
-          reject(error)
-        }
-      }, 400)
-    })
-  },
+      const response = await apperClient.createRecord('student_c', params)
 
-  // Update existing student
-  update: async (id, studentData) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        try {
-          const index = studentsData.findIndex(s => s.Id === parseInt(id))
-          if (index === -1) {
-            reject(new Error('Student not found'))
-            return
-          }
+      if (!response.success) {
+        console.error(response.message)
+        toast.error(response.message)
+        return null
+      }
 
-          // Validate required fields
-          if (!studentData.name || !studentData.email || !studentData.major || !studentData.year) {
-            reject(new Error('Missing required fields'))
-            return
-          }
-
-          // Check for duplicate email (excluding current student)
-          const existingStudent = studentsData.find(s => 
-            s.Id !== parseInt(id) && 
-            s.email.toLowerCase() === studentData.email.toLowerCase()
-          )
-          if (existingStudent) {
-            reject(new Error('A student with this email already exists'))
-            return
-          }
-
-          const updatedStudent = {
-            ...studentsData[index],
-            name: studentData.name.trim(),
-            email: studentData.email.trim().toLowerCase(),
-            major: studentData.major.trim(),
-            year: studentData.year,
-            gpa: studentData.gpa ? parseFloat(studentData.gpa).toFixed(2) : '',
-            status: studentData.status || 'Active'
-          }
-
-          studentsData[index] = updatedStudent
-          resolve({ ...updatedStudent })
-        } catch (error) {
-          reject(error)
-        }
-      }, 400)
-    })
-  },
-
-  // Delete student
-  delete: async (id) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        try {
-          const index = studentsData.findIndex(s => s.Id === parseInt(id))
-          if (index === -1) {
-            reject(new Error('Student not found'))
-            return
-          }
-
-          studentsData.splice(index, 1)
-          resolve(true)
-        } catch (error) {
-          reject(error)
-        }
-      }, 300)
-    })
-  },
-
-  // Search students
-  search: async (query) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        if (!query) {
-          resolve(getData())
-          return
-        }
-
-        const searchQuery = query.toLowerCase()
-        const filtered = studentsData.filter(student =>
-          student.name.toLowerCase().includes(searchQuery) ||
-          student.email.toLowerCase().includes(searchQuery) ||
-          student.major.toLowerCase().includes(searchQuery)
-        )
+      if (response.results) {
+        const successful = response.results.filter(r => r.success)
+        const failed = response.results.filter(r => !r.success)
         
-        resolve(filtered.map(s => ({ ...s })))
-      }, 200)
-    })
+        if (failed.length > 0) {
+          console.error(`Failed to create ${failed.length} students:`, failed)
+          failed.forEach(record => {
+            record.errors?.forEach(error => toast.error(`${error.fieldLabel}: ${error}`))
+            if (record.message) toast.error(record.message)
+          })
+        }
+        
+        if (successful.length > 0) {
+          const created = successful[0].data
+          return {
+            Id: created.Id,
+            name: created.name_c || '',
+            email: created.email_c || '',
+            major: created.major_c || '',
+            year: created.year_c || '',
+            gpa: created.gpa_c || '',
+            status: created.status_c || 'Active'
+          }
+        }
+      }
+      return null
+    } catch (error) {
+      console.error("Error creating student:", error?.response?.data?.message || error)
+      throw error
+    }
   },
 
-  // Get students by status
-  getByStatus: async (status) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const filtered = studentsData.filter(student => student.status === status)
-        resolve(filtered.map(s => ({ ...s })))
-      }, 200)
-    })
+  async update(id, studentData) {
+    try {
+      if (!studentData.name || !studentData.email || !studentData.major || !studentData.year) {
+        throw new Error('Missing required fields')
+      }
+
+      const { ApperClient } = window.ApperSDK
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      })
+
+      const params = {
+        records: [{
+          Id: parseInt(id),
+          Name: studentData.name.trim(),
+          name_c: studentData.name.trim(),
+          email_c: studentData.email.trim().toLowerCase(),
+          major_c: studentData.major.trim(),
+          year_c: studentData.year,
+          gpa_c: studentData.gpa ? parseFloat(studentData.gpa) : null,
+          status_c: studentData.status || 'Active'
+        }]
+      }
+
+      const response = await apperClient.updateRecord('student_c', params)
+
+      if (!response.success) {
+        console.error(response.message)
+        toast.error(response.message)
+        return null
+      }
+
+      if (response.results) {
+        const successful = response.results.filter(r => r.success)
+        const failed = response.results.filter(r => !r.success)
+        
+        if (failed.length > 0) {
+          console.error(`Failed to update ${failed.length} students:`, failed)
+          failed.forEach(record => {
+            record.errors?.forEach(error => toast.error(`${error.fieldLabel}: ${error}`))
+            if (record.message) toast.error(record.message)
+          })
+        }
+        
+        if (successful.length > 0) {
+          const updated = successful[0].data
+          return {
+            Id: updated.Id,
+            name: updated.name_c || '',
+            email: updated.email_c || '',
+            major: updated.major_c || '',
+            year: updated.year_c || '',
+            gpa: updated.gpa_c || '',
+            status: updated.status_c || 'Active'
+          }
+        }
+      }
+      return null
+    } catch (error) {
+      console.error("Error updating student:", error?.response?.data?.message || error)
+      throw error
+    }
   },
 
-  // Get students by major
-  getByMajor: async (major) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const filtered = studentsData.filter(student => student.major === major)
-        resolve(filtered.map(s => ({ ...s })))
-      }, 200)
-    })
+  async delete(id) {
+    try {
+      const { ApperClient } = window.ApperSDK
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      })
+
+      const params = { 
+        RecordIds: [parseInt(id)]
+      }
+
+      const response = await apperClient.deleteRecord('student_c', params)
+
+      if (!response.success) {
+        console.error(response.message)
+        toast.error(response.message)
+        return false
+      }
+
+      if (response.results) {
+        const successful = response.results.filter(r => r.success)
+        const failed = response.results.filter(r => !r.success)
+        
+        if (failed.length > 0) {
+          console.error(`Failed to delete ${failed.length} students:`, failed)
+          failed.forEach(record => {
+            if (record.message) toast.error(record.message)
+          })
+        }
+        return successful.length > 0
+      }
+      return true
+    } catch (error) {
+      console.error("Error deleting student:", error?.response?.data?.message || error)
+      return false
+    }
   },
 
-  // Get unique majors
-  getMajors: async () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const majors = [...new Set(studentsData.map(s => s.major))].sort()
-        resolve(majors)
-      }, 100)
-    })
+  async search(query) {
+    try {
+      const { ApperClient } = window.ApperSDK
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      })
+
+      const params = {
+        fields: [
+          {"field": {"Name": "Name"}},
+          {"field": {"Name": "name_c"}},
+          {"field": {"Name": "email_c"}},
+          {"field": {"Name": "major_c"}},
+          {"field": {"Name": "year_c"}},
+          {"field": {"Name": "gpa_c"}},
+          {"field": {"Name": "status_c"}}
+        ],
+        whereGroups: query ? [{
+          "operator": "OR",
+          "subGroups": [
+            {"conditions": [{"fieldName": "name_c", "operator": "Contains", "values": [query]}], "operator": ""},
+            {"conditions": [{"fieldName": "email_c", "operator": "Contains", "values": [query]}], "operator": ""},
+            {"conditions": [{"fieldName": "major_c", "operator": "Contains", "values": [query]}], "operator": ""}
+          ]
+        }] : []
+      }
+
+      const response = await apperClient.fetchRecords('student_c', params)
+
+      if (!response?.data?.length) {
+        return []
+      }
+
+      return response.data.map(student => ({
+        Id: student.Id,
+        name: student.name_c || '',
+        email: student.email_c || '',
+        major: student.major_c || '',
+        year: student.year_c || '',
+        gpa: student.gpa_c || '',
+        status: student.status_c || 'Active'
+      }))
+    } catch (error) {
+      console.error("Error searching students:", error?.response?.data?.message || error)
+      return []
+    }
   },
 
-  // Reset data to initial state
-  resetData: () => {
-    studentsData = getData()
-    return studentsData
+  async getByStatus(status) {
+    try {
+      const { ApperClient } = window.ApperSDK
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      })
+
+      const params = {
+        fields: [
+          {"field": {"Name": "Name"}},
+          {"field": {"Name": "name_c"}},
+          {"field": {"Name": "email_c"}},
+          {"field": {"Name": "major_c"}},
+          {"field": {"Name": "year_c"}},
+          {"field": {"Name": "gpa_c"}},
+          {"field": {"Name": "status_c"}}
+        ],
+        where: [{"FieldName": "status_c", "Operator": "EqualTo", "Values": [status]}]
+      }
+
+      const response = await apperClient.fetchRecords('student_c', params)
+
+      if (!response?.data?.length) {
+        return []
+      }
+
+      return response.data.map(student => ({
+        Id: student.Id,
+        name: student.name_c || '',
+        email: student.email_c || '',
+        major: student.major_c || '',
+        year: student.year_c || '',
+        gpa: student.gpa_c || '',
+        status: student.status_c || 'Active'
+      }))
+    } catch (error) {
+      console.error("Error fetching students by status:", error?.response?.data?.message || error)
+      return []
+    }
+  },
+
+  async getByMajor(major) {
+    try {
+      const { ApperClient } = window.ApperSDK
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      })
+
+      const params = {
+        fields: [
+          {"field": {"Name": "Name"}},
+          {"field": {"Name": "name_c"}},
+          {"field": {"Name": "email_c"}},
+          {"field": {"Name": "major_c"}},
+          {"field": {"Name": "year_c"}},
+          {"field": {"Name": "gpa_c"}},
+          {"field": {"Name": "status_c"}}
+        ],
+        where: [{"FieldName": "major_c", "Operator": "EqualTo", "Values": [major]}]
+      }
+
+      const response = await apperClient.fetchRecords('student_c', params)
+
+      if (!response?.data?.length) {
+        return []
+      }
+
+      return response.data.map(student => ({
+        Id: student.Id,
+        name: student.name_c || '',
+        email: student.email_c || '',
+        major: student.major_c || '',
+        year: student.year_c || '',
+        gpa: student.gpa_c || '',
+        status: student.status_c || 'Active'
+      }))
+    } catch (error) {
+      console.error("Error fetching students by major:", error?.response?.data?.message || error)
+      return []
+    }
+  },
+
+  async getMajors() {
+    try {
+      const students = await this.getAll()
+      const majors = [...new Set(students.map(s => s.major))].sort()
+      return majors
+    } catch (error) {
+      console.error("Error fetching majors:", error?.response?.data?.message || error)
+      return []
+    }
   }
 }

@@ -29,7 +29,7 @@ const CourseGrid = ({ onEditCourse, onDeleteCourse }) => {
 
       // Calculate stats for each course
       const stats = {}
-      coursesData.forEach(course => {
+coursesData.forEach(course => {
         const courseAssignments = assignments.filter(a => a.courseId === course.Id)
         const courseGrades = grades.filter(g => g.courseId === course.Id)
         
@@ -104,16 +104,16 @@ const CourseGrid = ({ onEditCourse, onDeleteCourse }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {courses.map((course) => {
-        const stats = courseStats[course.Id] || {}
+const stats = courseStats[course.Id] || {}
         return (
-          <Card key={course.Id} className="hover:shadow-lg transition-all duration-200 hover:scale-105">
+<Card key={course.Id} className="hover:shadow-lg transition-all duration-200 hover:scale-105">
             <CardHeader className="pb-3">
               <div className="flex items-start justify-between">
                 <div className="flex-1 min-w-0">
                   <CardTitle className="flex items-center gap-2 mb-1">
                     <div 
                       className="w-3 h-3 rounded-full flex-shrink-0" 
-                      style={{ backgroundColor: course.color }}
+style={{ backgroundColor: course.color }}
                     />
                     <span className="truncate">{course.name}</span>
                   </CardTitle>
@@ -168,7 +168,7 @@ const CourseGrid = ({ onEditCourse, onDeleteCourse }) => {
                   </div>
                 </div>
 
-                {course.schedule && (
+{course.schedule && (
                   <div className="text-sm text-gray-600">
                     <div className="flex items-center gap-1 mb-1">
                       <ApperIcon name="Clock" className="w-3 h-3" />

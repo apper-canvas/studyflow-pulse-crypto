@@ -18,7 +18,7 @@ const NoteModal = ({ note, courses, onClose, onSave }) => {
   const [saving, setSaving] = useState(false)
   const [errors, setErrors] = useState({})
 
-  useEffect(() => {
+useEffect(() => {
     if (note) {
       setFormData({
         title: note.title || "",
@@ -58,7 +58,7 @@ const NoteModal = ({ note, courses, onClose, onSave }) => {
     try {
       setSaving(true)
       
-      const noteData = {
+const noteData = {
         title: formData.title.trim(),
         courseId: parseInt(formData.courseId),
         content: formData.content.trim(),
@@ -116,7 +116,7 @@ const NoteModal = ({ note, courses, onClose, onSave }) => {
                 error={!!errors.courseId}
               >
                 <option value="">Select a course</option>
-                {courses.map(course => (
+{courses.map(course => (
                   <option key={course.Id} value={course.Id.toString()}>
                     {course.name}
                   </option>

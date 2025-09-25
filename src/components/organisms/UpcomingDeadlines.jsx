@@ -25,7 +25,7 @@ const UpcomingDeadlines = () => {
 
       const upcomingAssignments = assignments
         .filter(assignment => assignment.status !== "completed")
-        .map(assignment => {
+.map(assignment => {
           const course = courses.find(c => c.Id === assignment.courseId)
           const dueDate = new Date(assignment.dueDate)
           const isOverdue = isPast(dueDate) && !isToday(dueDate)
@@ -90,12 +90,12 @@ const UpcomingDeadlines = () => {
         ) : (
           <div className="space-y-4">
             {deadlines.map((assignment) => (
-              <div
+<div
                 key={assignment.Id}
                 className="flex items-center justify-between p-3 rounded-lg border border-gray-100 hover:bg-gray-50 transition-colors"
               >
                 <div className="flex-1">
-                  <h4 className="font-medium text-gray-900 mb-1">
+<h4 className="font-medium text-gray-900 mb-1">
                     {assignment.title}
                   </h4>
                   <div className="flex items-center gap-2 text-sm text-gray-500">

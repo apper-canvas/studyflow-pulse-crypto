@@ -61,7 +61,7 @@ const Notes = () => {
       )
     }
 
-    if (courseFilter !== "all") {
+if (courseFilter !== "all") {
       filtered = filtered.filter(note => note.courseId === parseInt(courseFilter))
     }
 
@@ -108,7 +108,7 @@ const Notes = () => {
     }
   }
 
-  const getCourseById = (courseId) => {
+const getCourseById = (courseId) => {
     return courses.find(course => course.Id === courseId)
   }
 
@@ -151,7 +151,7 @@ const Notes = () => {
                   onChange={(e) => setCourseFilter(e.target.value)}
                 >
                   <option value="all">All Courses</option>
-                  {courses.map(course => (
+{courses.map(course => (
                     <option key={course.Id} value={course.Id.toString()}>
                       {course.name}
                     </option>
@@ -171,7 +171,7 @@ const Notes = () => {
               ) : (
                 <div className="max-h-96 overflow-y-auto">
                   {filteredNotes.map(note => {
-                    const course = getCourseById(note.courseId)
+const course = getCourseById(note.courseId)
                     const isSelected = selectedNote && selectedNote.Id === note.Id
                     
                     return (
@@ -183,11 +183,11 @@ const Notes = () => {
                         onClick={() => handleViewNote(note)}
                       >
                         <div className="flex justify-between items-start mb-2">
-                          <h4 className="font-medium text-gray-900 truncate">{note.title}</h4>
+<h4 className="font-medium text-gray-900 truncate">{note.title}</h4>
                           <div className="flex gap-1">
                             <Button
                               variant="ghost"
-                              size="icon"
+size="icon"
                               onClick={(e) => {
                                 e.stopPropagation()
                                 handleEditNote(note)
@@ -201,7 +201,7 @@ const Notes = () => {
                               size="icon"
                               onClick={(e) => {
                                 e.stopPropagation()
-                                handleDeleteNote(note.Id)
+handleDeleteNote(note.Id)
                               }}
                               className="h-6 w-6 text-error-600 hover:text-error-700 hover:bg-error-50"
                             >
@@ -209,7 +209,7 @@ const Notes = () => {
                             </Button>
                           </div>
                         </div>
-                        {course && (
+{course && (
                           <div className="flex items-center gap-2 mb-2">
                             <div 
                               className="w-2 h-2 rounded-full" 
@@ -219,11 +219,11 @@ const Notes = () => {
                           </div>
                         )}
                         <p className="text-sm text-gray-500 mb-2 line-clamp-2">
-                          {note.content}
+{note.content}
                         </p>
                         <div className="flex items-center justify-between">
                           <div className="flex gap-1">
-                            {note.tags.slice(0, 2).map(tag => (
+{note.tags.slice(0, 2).map(tag => (
                               <Badge key={tag} variant="secondary" className="text-xs">
                                 {tag}
                               </Badge>
@@ -251,8 +251,8 @@ const Notes = () => {
               <CardHeader>
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
-                    <CardTitle className="mb-2">{selectedNote.title}</CardTitle>
-                    {getCourseById(selectedNote.courseId) && (
+<CardTitle className="mb-2">{selectedNote.title}</CardTitle>
+{getCourseById(selectedNote.courseId) && (
                       <div className="flex items-center gap-2 mb-2">
                         <div 
                           className="w-3 h-3 rounded-full" 
@@ -265,14 +265,14 @@ const Notes = () => {
                     )}
                     <div className="flex items-center gap-2 text-sm text-gray-500">
                       <ApperIcon name="Calendar" className="w-4 h-4" />
-                      Created {format(new Date(selectedNote.createdAt), "MMM dd, yyyy 'at' h:mm a")}
+Created {format(new Date(selectedNote.createdAt), "MMM dd, yyyy 'at' h:mm a")}
                     </div>
                   </div>
                   <div className="flex gap-2">
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => handleEditNote(selectedNote)}
+onClick={() => handleEditNote(selectedNote)}
                       icon="Edit"
                     >
                       Edit
@@ -280,7 +280,7 @@ const Notes = () => {
                     <Button
                       variant="destructive"
                       size="sm"
-                      onClick={() => handleDeleteNote(selectedNote.Id)}
+onClick={() => handleDeleteNote(selectedNote.Id)}
                       icon="Trash2"
                     >
                       Delete
@@ -291,10 +291,10 @@ const Notes = () => {
               <CardContent>
                 <div className="prose max-w-none">
                   <div className="whitespace-pre-wrap text-gray-700 leading-relaxed">
-                    {selectedNote.content}
+{selectedNote.content}
                   </div>
                 </div>
-                {selectedNote.tags.length > 0 && (
+{selectedNote.tags.length > 0 && (
                   <div className="mt-6 pt-4 border-t border-gray-200">
                     <div className="flex items-center gap-2">
                       <ApperIcon name="Tag" className="w-4 h-4 text-gray-500" />
@@ -329,7 +329,7 @@ const Notes = () => {
         </div>
       </div>
 
-      {showModal && (
+{showModal && (
         <NoteModal
           note={editingNote}
           courses={courses}

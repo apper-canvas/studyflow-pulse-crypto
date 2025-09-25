@@ -33,11 +33,12 @@ const DashboardStats = () => {
 
       // Calculate GPA
       const courseGrades = {}
-      grades.forEach(grade => {
-        if (!courseGrades[grade.courseId]) {
-          courseGrades[grade.courseId] = []
+grades.forEach(grade => {
+        const courseId = grade.courseId
+        if (!courseGrades[courseId]) {
+          courseGrades[courseId] = []
         }
-        courseGrades[grade.courseId].push(grade)
+        courseGrades[courseId].push(grade)
       })
 
       let totalPoints = 0

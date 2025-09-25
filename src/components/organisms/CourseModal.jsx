@@ -30,7 +30,7 @@ const CourseModal = ({ course, onClose, onSave }) => {
   ]
 
   useEffect(() => {
-    if (course) {
+if (course) {
       setFormData({
         name: course.name || "",
         instructor: course.instructor || "",
@@ -99,7 +99,7 @@ const CourseModal = ({ course, onClose, onSave }) => {
     try {
       setSaving(true)
       
-      const courseData = {
+const courseData = {
         ...formData,
         credits: parseInt(formData.credits)
       }

@@ -30,7 +30,7 @@ const AssignmentModal = ({ assignment, onClose, onSave }) => {
   }, [])
 
   useEffect(() => {
-    if (assignment) {
+if (assignment) {
       const dueDate = new Date(assignment.dueDate)
       setFormData({
         title: assignment.title || "",
@@ -86,7 +86,7 @@ const AssignmentModal = ({ assignment, onClose, onSave }) => {
       setSaving(true)
       
       // Combine date and time
-      const dueDateTime = new Date(`${formData.dueDate}T${formData.dueTime}:00`)
+const dueDateTime = new Date(`${formData.dueDate}T${formData.dueTime}:00`)
       
       const assignmentData = {
         title: formData.title,
@@ -148,7 +148,7 @@ const AssignmentModal = ({ assignment, onClose, onSave }) => {
               disabled={loadingCourses}
             >
               <option value="">Select a course</option>
-              {courses.map(course => (
+{courses.map(course => (
                 <option key={course.Id} value={course.Id.toString()}>
                   {course.name}
                 </option>
