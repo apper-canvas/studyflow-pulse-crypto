@@ -1,0 +1,110 @@
+[
+  {
+    "Id": 1,
+    "name": "Emily Johnson",
+    "email": "emily.johnson@studyflow.edu",
+    "major": "Computer Science",
+    "year": "Junior",
+    "gpa": "3.85",
+    "status": "Active"
+  },
+  {
+    "Id": 2,
+    "name": "Michael Chen",
+    "email": "michael.chen@studyflow.edu",
+    "major": "Business Administration",
+    "year": "Senior",
+    "gpa": "3.67",
+    "status": "Active"
+  },
+  {
+    "Id": 3,
+    "name": "Sarah Williams",
+    "email": "sarah.williams@studyflow.edu",
+    "major": "Psychology",
+    "year": "Sophomore",
+    "gpa": "3.92",
+    "status": "Active"
+  },
+  {
+    "Id": 4,
+    "name": "David Rodriguez",
+    "email": "david.rodriguez@studyflow.edu",
+    "major": "Engineering",
+    "year": "Freshman",
+    "gpa": "3.74",
+    "status": "Active"
+  },
+  {
+    "Id": 5,
+    "name": "Jessica Brown",
+    "email": "jessica.brown@studyflow.edu",
+    "major": "Biology",
+    "year": "Senior",
+    "gpa": "3.89",
+    "status": "On Leave"
+  },
+  {
+    "Id": 6,
+    "name": "Alex Thompson",
+    "email": "alex.thompson@studyflow.edu",
+    "major": "Mathematics",
+    "year": "Junior",
+    "gpa": "4.00",
+    "status": "Active"
+  },
+  {
+    "Id": 7,
+    "name": "Maria Garcia",
+    "email": "maria.garcia@studyflow.edu",
+    "major": "Art History",
+    "year": "Sophomore",
+    "gpa": "3.56",
+    "status": "Active"
+  },
+  {
+    "Id": 8,
+    "name": "James Wilson",
+    "email": "james.wilson@studyflow.edu",
+    "major": "Chemistry",
+    "year": "Senior",
+    "gpa": "3.78",
+    "status": "Graduated"
+  },
+  {
+    "Id": 9,
+    "name": "Rachel Kim",
+    "email": "rachel.kim@studyflow.edu",
+    "major": "English Literature",
+    "year": "Freshman",
+    "gpa": "3.45",
+    "status": "Active"
+  },
+  {
+    "Id": 10,
+    "name": "Robert Taylor",
+    "email": "robert.taylor@studyflow.edu",
+    "major": "Physics",
+    "year": "Junior",
+    "gpa": "3.83",
+    "status": "Inactive"
+  },
+  {
+    "Id": 11,
+    "name": "Lisa Anderson",
+    "email": "lisa.anderson@studyflow.edu",
+    "major": "Political Science",
+    "year": "Sophomore",
+    "gpa": "3.71",
+    "status": "Active"
+  },
+  {
+    "Id": 12,
+    "name": "Kevin Lee",
+    "email": "kevin.lee@studyflow.edu",
+    "major": "Economics",
+    "year": "Senior",
+    "gpa": "3.94",
+    "status": "Active"
+  }
+]

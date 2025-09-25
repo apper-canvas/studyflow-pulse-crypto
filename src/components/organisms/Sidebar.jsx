@@ -11,9 +11,10 @@ const Sidebar = ({ className }) => {
     { to: "/dashboard", icon: "LayoutDashboard", label: "Dashboard" },
     { to: "/courses", icon: "BookOpen", label: "Courses" },
     { to: "/assignments", icon: "FileText", label: "Assignments" },
-    { to: "/grades", icon: "Award", label: "Grades" },
+{ to: "/grades", icon: "Award", label: "Grades" },
     { to: "/calendar", icon: "Calendar", label: "Calendar" },
-    { to: "/notes", icon: "StickyNote", label: "Notes" }
+    { to: "/notes", icon: "StickyNote", label: "Notes" },
+    { to: "/students", icon: "Users", label: "Students" }
   ]
 
   return (

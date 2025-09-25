@@ -8,7 +8,7 @@ import Assignments from "@/components/pages/Assignments"
 import Grades from "@/components/pages/Grades"
 import Calendar from "@/components/pages/Calendar"
 import Notes from "@/components/pages/Notes"
-
+import Students from "@/components/pages/Students"
 function App() {
   return (
     <BrowserRouter>
@@ -20,8 +20,9 @@ function App() {
             <Route path="/courses" element={<Courses />} />
             <Route path="/assignments" element={<Assignments />} />
             <Route path="/grades" element={<Grades />} />
-            <Route path="/calendar" element={<Calendar />} />
+<Route path="/calendar" element={<Calendar />} />
             <Route path="/notes" element={<Notes />} />
+            <Route path="/students" element={<Students />} />
           </Routes>
         </Layout>
         <ToastContainer
