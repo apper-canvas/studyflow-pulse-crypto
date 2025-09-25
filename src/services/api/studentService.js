@@ -120,8 +120,6 @@ name_c: studentData.name,
           gpa_c: studentData.gpa ? parseFloat(studentData.gpa) : null,
           science_marks_c: studentData.scienceMarks ? parseFloat(studentData.scienceMarks) : null,
           maths_marks_c: studentData.mathsMarks ? parseFloat(studentData.mathsMarks) : null,
-          status_c: studentData.status,
-          maths_marks_c: studentData.mathsMarks ? parseFloat(studentData.mathsMarks) : null,
           status_c: studentData.status || 'Active'
         }]
       }
@@ -225,8 +223,6 @@ name_c: studentData.name,
           gpa_c: studentData.gpa ? parseFloat(studentData.gpa) : null,
           science_marks_c: studentData.scienceMarks ? parseFloat(studentData.scienceMarks) : null,
           maths_marks_c: studentData.mathsMarks ? parseFloat(studentData.mathsMarks) : null,
-          status_c: studentData.status,
-          maths_marks_c: studentData.mathsMarks ? parseFloat(studentData.mathsMarks) : null,
           status_c: studentData.status || 'Active'
         }]
       }
@@ -329,7 +325,6 @@ const params = {
 {"field": {"Name": "gpa_c"}},
           {"field": {"Name": "science_marks_c"}},
           {"field": {"Name": "maths_marks_c"}},
-          {"field": {"Name": "maths_marks_c"}},
           {"field": {"Name": "status_c"}}
         ],
         whereGroups: query ? [{
@@ -428,7 +423,6 @@ const params = {
           {"field": {"Name": "year_c"}},
 {"field": {"Name": "gpa_c"}},
           {"field": {"Name": "science_marks_c"}},
-          {"field": {"Name": "maths_marks_c"}},
           {"field": {"Name": "maths_marks_c"}},
           {"field": {"Name": "status_c"}}
         ],
