@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react"
-import { motion } from "framer-motion"
-import Button from "@/components/atoms/Button"
-import Input from "@/components/atoms/Input"
-import Textarea from "@/components/atoms/Textarea"
-import Select from "@/components/atoms/Select"
-import FormField from "@/components/molecules/FormField"
-import ApperIcon from "@/components/ApperIcon"
-import { format } from "date-fns"
-import assignmentService from "@/services/api/assignmentService"
-import courseService from "@/services/api/courseService"
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { format } from "date-fns";
+import { toast } from "react-toastify";
+import assignmentService from "@/services/api/assignmentService";
+import courseService from "@/services/api/courseService";
+import ApperIcon from "@/components/ApperIcon";
+import FormField from "@/components/molecules/FormField";
+import Button from "@/components/atoms/Button";
+import Input from "@/components/atoms/Input";
+import Select from "@/components/atoms/Select";
+import Textarea from "@/components/atoms/Textarea";
 
 const AssignmentModal = ({ assignment, onClose, onSave }) => {
   const [courses, setCourses] = useState([])
@@ -80,13 +81,13 @@ if (assignment) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     
-    if (!validateForm()) return
+if (!validateForm()) return
     
     try {
       setSaving(true)
       
       // Combine date and time
-const dueDateTime = new Date(`${formData.dueDate}T${formData.dueTime}:00`)
+      const dueDateTime = new Date(`${formData.dueDate}T${formData.dueTime}:00`)
       
       const assignmentData = {
         title: formData.title,
@@ -97,15 +98,50 @@ const dueDateTime = new Date(`${formData.dueDate}T${formData.dueTime}:00`)
         description: formData.description
       }
       
+      let result;
       if (assignment) {
-        await assignmentService.update(assignment.Id, assignmentData)
+        result = await assignmentService.update(assignment.Id, assignmentData)
       } else {
-        await assignmentService.create(assignmentData)
+        result = await assignmentService.create(assignmentData)
+      }
+
+      toast.success(`Assignment ${assignment ? "updated" : "created"} successfully!`)
+      
+      // Check if assignment priority is High and send email notification
+      if (assignmentData.priority === 'high') {
+        try {
+          const { ApperClient } = window.ApperSDK;
+          const apperClient = new ApperClient({
+            apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+            apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+          });
+
+          await apperClient.functions.invoke(import.meta.env.VITE_SEND_HIGH_PRIORITY_ASSIGNMENT_EMAIL, {
+            body: {
+              assignmentTitle: assignmentData.title,
+              assignmentDescription: assignmentData.description,
+              dueDate: assignmentData.dueDate,
+              courseName: assignmentData.courseName || 'Not specified',
+              priority: assignmentData.priority
+            },
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          
+          toast.success('High priority assignment email notification sent!');
+        } catch (emailError) {
+          console.error('Failed to send high priority email:', emailError);
+          toast.warn('Assignment saved but email notification failed');
+        }
       }
       
       onSave()
+      onClose()
     } catch (error) {
-      setErrors({ submit: error.message || "Failed to save assignment" })
+      console.error('Failed to save assignment:', error);
+      setErrors({ submit: 'Failed to save assignment. Please try again.' });
+      toast.error('Failed to save assignment');
     } finally {
       setSaving(false)
     }
