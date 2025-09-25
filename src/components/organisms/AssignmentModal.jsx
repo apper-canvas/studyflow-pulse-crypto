@@ -108,7 +108,7 @@ if (!validateForm()) return
       toast.success(`Assignment ${assignment ? "updated" : "created"} successfully!`)
       
       // Check if assignment priority is High and send email notification
-      if (assignmentData.priority === 'high') {
+if (assignmentData.priority === 'high') {
         try {
 const { ApperClient } = window.ApperSDK;
           const apperClient = new ApperClient({
@@ -118,11 +118,11 @@ const { ApperClient } = window.ApperSDK;
           
           await apperClient.functions.invoke(import.meta.env.VITE_SEND_HIGH_PRIORITY_ASSIGNMENT_EMAIL, {
             body: {
-              studentEmail: assignmentData.studentEmail || 'student@example.com',
               assignmentTitle: assignmentData.title || 'New Assignment',
+              assignmentDescription: assignmentData.description || '',
               dueDate: assignmentData.dueDate || new Date().toISOString(),
               courseName: assignmentData.courseName || 'Not specified',
-              priority: assignmentData.priority
+              priority: 'High'
             },
             headers: {
               'Content-Type': 'application/json'
