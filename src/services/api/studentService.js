@@ -13,13 +13,14 @@ export const studentService = {
 
 const params = {
         fields: [
-          {"field": {"Name": "Name"}},
+{"field": {"Name": "Name"}},
           {"field": {"Name": "name_c"}},
           {"field": {"Name": "email_c"}},
           {"field": {"Name": "major_c"}},
           {"field": {"Name": "year_c"}},
           {"field": {"Name": "gpa_c"}},
           {"field": {"Name": "science_marks_c"}},
+          {"field": {"Name": "maths_marks_c"}},
           {"field": {"Name": "status_c"}}
         ]
       }
@@ -62,7 +63,7 @@ const params = {
           {"field": {"Name": "email_c"}},
           {"field": {"Name": "major_c"}},
           {"field": {"Name": "year_c"}},
-          {"field": {"Name": "gpa_c"}},
+{"field": {"Name": "gpa_c"}},
           {"field": {"Name": "science_marks_c"}},
           {"field": {"Name": "maths_marks_c"}},
           {"field": {"Name": "status_c"}}
@@ -112,8 +113,14 @@ const params = {
           email_c: studentData.email.trim().toLowerCase(),
           major_c: studentData.major.trim(),
           year_c: studentData.year,
+name_c: studentData.name,
+          email_c: studentData.email,
+          major_c: studentData.major,
+          year_c: studentData.year,
           gpa_c: studentData.gpa ? parseFloat(studentData.gpa) : null,
           science_marks_c: studentData.scienceMarks ? parseFloat(studentData.scienceMarks) : null,
+          maths_marks_c: studentData.mathsMarks ? parseFloat(studentData.mathsMarks) : null,
+          status_c: studentData.status,
           maths_marks_c: studentData.mathsMarks ? parseFloat(studentData.mathsMarks) : null,
           status_c: studentData.status || 'Active'
         }]
@@ -211,8 +218,14 @@ const params = {
           email_c: studentData.email.trim().toLowerCase(),
           major_c: studentData.major.trim(),
           year_c: studentData.year,
+name_c: studentData.name,
+          email_c: studentData.email,
+          major_c: studentData.major,
+          year_c: studentData.year,
           gpa_c: studentData.gpa ? parseFloat(studentData.gpa) : null,
           science_marks_c: studentData.scienceMarks ? parseFloat(studentData.scienceMarks) : null,
+          maths_marks_c: studentData.mathsMarks ? parseFloat(studentData.mathsMarks) : null,
+          status_c: studentData.status,
           maths_marks_c: studentData.mathsMarks ? parseFloat(studentData.mathsMarks) : null,
           status_c: studentData.status || 'Active'
         }]
@@ -313,8 +326,9 @@ const params = {
           {"field": {"Name": "email_c"}},
           {"field": {"Name": "major_c"}},
           {"field": {"Name": "year_c"}},
-          {"field": {"Name": "gpa_c"}},
+{"field": {"Name": "gpa_c"}},
           {"field": {"Name": "science_marks_c"}},
+          {"field": {"Name": "maths_marks_c"}},
           {"field": {"Name": "maths_marks_c"}},
           {"field": {"Name": "status_c"}}
         ],
@@ -367,7 +381,7 @@ const params = {
           {"field": {"Name": "major_c"}},
           {"field": {"Name": "year_c"}},
           {"field": {"Name": "gpa_c"}},
-          {"field": {"Name": "science_marks_c"}},
+{"field": {"Name": "science_marks_c"}},
           {"field": {"Name": "maths_marks_c"}},
           {"field": {"Name": "status_c"}}
         ],
@@ -412,8 +426,9 @@ const params = {
           {"field": {"Name": "email_c"}},
           {"field": {"Name": "major_c"}},
           {"field": {"Name": "year_c"}},
-          {"field": {"Name": "gpa_c"}},
+{"field": {"Name": "gpa_c"}},
           {"field": {"Name": "science_marks_c"}},
+          {"field": {"Name": "maths_marks_c"}},
           {"field": {"Name": "maths_marks_c"}},
           {"field": {"Name": "status_c"}}
         ],
