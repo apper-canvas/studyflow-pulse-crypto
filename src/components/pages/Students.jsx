@@ -316,7 +316,7 @@ if (formData.gpa && (isNaN(formData.gpa) || formData.gpa < 0 || formData.gpa > 4
                     <span className="font-medium">{student.gpa}</span>
                   </div>
                 )}
-                )}
+()
                 {student.mathsMarks && (
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Maths Marks:</span>
