@@ -141,7 +141,7 @@ const params = {
         
         if (successful.length > 0) {
           const created = successful[0].data
-return {
+const studentData = {
             Id: created.Id,
             name: created.name_c || '',
             email: created.email_c || '',
@@ -151,7 +151,37 @@ return {
             scienceMarks: created.science_marks_c || '',
             mathsMarks: created.maths_marks_c || '',
             status: created.status_c || 'Active'
+          };
+
+          // Check if maths marks are greater than 7.0 and send email
+          if (created.maths_marks_c && created.maths_marks_c > 7.0) {
+            try {
+              const { ApperClient } = window.ApperSDK;
+              const apperClient = new ApperClient({
+                apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+                apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+              });
+
+              await apperClient.functions.invoke(import.meta.env.VITE_SEND_STUDENT_EMAIL, {
+                body: {
+                  email: created.email_c,
+                  name: created.name_c
+                },
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              });
+
+              toast.success(`Student created successfully! Congratulations email sent to ${created.email_c}`);
+            } catch (emailError) {
+              console.error('Failed to send congratulations email:', emailError);
+              toast.warning('Student created successfully, but failed to send congratulations email');
+            }
+          } else {
+            toast.success('Student created successfully!');
           }
+
+          return studentData;
         }
       }
       return null
