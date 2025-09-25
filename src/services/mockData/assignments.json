@@ -1,0 +1,102 @@
+[
+  {
+    "Id": 1,
+    "courseId": 1,
+    "title": "Limits and Derivatives Problem Set",
+    "dueDate": "2024-12-20T23:59:59Z",
+    "priority": "high",
+    "status": "pending",
+    "description": "Complete problems 1-25 from Chapter 3",
+    "grade": null
+  },
+  {
+    "Id": 2,
+    "courseId": 1,
+    "title": "Integration Techniques Quiz",
+    "dueDate": "2024-12-22T15:00:00Z",
+    "priority": "medium",
+    "status": "in-progress",
+    "description": "Online quiz covering substitution and integration by parts",
+    "grade": null
+  },
+  {
+    "Id": 3,
+    "courseId": 2,
+    "title": "Research Paper: Cognitive Development",
+    "dueDate": "2024-12-18T23:59:59Z",
+    "priority": "high",
+    "status": "completed",
+    "description": "5-page paper on Piaget's theory of cognitive development",
+    "grade": 88
+  },
+  {
+    "Id": 4,
+    "courseId": 2,
+    "title": "Psychology Experiment Participation",
+    "dueDate": "2024-12-25T23:59:59Z",
+    "priority": "low",
+    "status": "pending",
+    "description": "Complete 3 hours of research participation",
+    "grade": null
+  },
+  {
+    "Id": 5,
+    "courseId": 3,
+    "title": "Argumentative Essay Draft",
+    "dueDate": "2024-12-19T23:59:59Z",
+    "priority": "medium",
+    "status": "in-progress",
+    "description": "First draft of argumentative essay on climate change",
+    "grade": null
+  },
+  {
+    "Id": 6,
+    "courseId": 3,
+    "title": "Peer Review Workshop",
+    "dueDate": "2024-12-21T11:00:00Z",
+    "priority": "medium",
+    "status": "pending",
+    "description": "Review and provide feedback on classmate's essay",
+    "grade": null
+  },
+  {
+    "Id": 7,
+    "courseId": 4,
+    "title": "Programming Assignment 1",
+    "dueDate": "2024-12-23T23:59:59Z",
+    "priority": "high",
+    "status": "pending",
+    "description": "Implement basic sorting algorithms in Python",
+    "grade": null
+  },
+  {
+    "Id": 8,
+    "courseId": 4,
+    "title": "Database Design Project",
+    "dueDate": "2024-12-27T23:59:59Z",
+    "priority": "high",
+    "status": "in-progress",
+    "description": "Design and implement a student information system",
+    "grade": null
+  },
+  {
+    "Id": 9,
+    "courseId": 5,
+    "title": "World War I Timeline",
+    "dueDate": "2024-12-24T23:59:59Z",
+    "priority": "medium",
+    "status": "completed",
+    "description": "Create detailed timeline of WWI major events",
+    "grade": 92
+  },
+  {
+    "Id": 10,
+    "courseId": 5,
+    "title": "Historical Analysis Essay",
+    "dueDate": "2024-12-26T23:59:59Z",
+    "priority": "high",
+    "status": "pending",
+    "description": "Analyze the causes and effects of the Industrial Revolution",
+    "grade": null
+  }
+]

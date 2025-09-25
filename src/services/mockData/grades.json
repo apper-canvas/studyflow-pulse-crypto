@@ -1,0 +1,164 @@
+[
+  {
+    "Id": 1,
+    "courseId": 1,
+    "assignmentId": null,
+    "category": "Homework",
+    "points": 85,
+    "maxPoints": 100,
+    "weight": 0.30
+  },
+  {
+    "Id": 2,
+    "courseId": 1,
+    "assignmentId": null,
+    "category": "Quizzes",
+    "points": 78,
+    "maxPoints": 100,
+    "weight": 0.25
+  },
+  {
+    "Id": 3,
+    "courseId": 1,
+    "assignmentId": null,
+    "category": "Midterm Exam",
+    "points": 82,
+    "maxPoints": 100,
+    "weight": 0.20
+  },
+  {
+    "Id": 4,
+    "courseId": 1,
+    "assignmentId": null,
+    "category": "Final Exam",
+    "points": 88,
+    "maxPoints": 100,
+    "weight": 0.25
+  },
+  {
+    "Id": 5,
+    "courseId": 2,
+    "assignmentId": 3,
+    "category": "Research Papers",
+    "points": 88,
+    "maxPoints": 100,
+    "weight": 0.40
+  },
+  {
+    "Id": 6,
+    "courseId": 2,
+    "assignmentId": null,
+    "category": "Participation",
+    "points": 95,
+    "maxPoints": 100,
+    "weight": 0.20
+  },
+  {
+    "Id": 7,
+    "courseId": 2,
+    "assignmentId": null,
+    "category": "Quizzes",
+    "points": 86,
+    "maxPoints": 100,
+    "weight": 0.25
+  },
+  {
+    "Id": 8,
+    "courseId": 2,
+    "assignmentId": null,
+    "category": "Final Exam",
+    "points": 91,
+    "maxPoints": 100,
+    "weight": 0.15
+  },
+  {
+    "Id": 9,
+    "courseId": 3,
+    "assignmentId": null,
+    "category": "Essays",
+    "points": 87,
+    "maxPoints": 100,
+    "weight": 0.50
+  },
+  {
+    "Id": 10,
+    "courseId": 3,
+    "assignmentId": null,
+    "category": "Participation",
+    "points": 93,
+    "maxPoints": 100,
+    "weight": 0.25
+  },
+  {
+    "Id": 11,
+    "courseId": 3,
+    "assignmentId": null,
+    "category": "Final Portfolio",
+    "points": 89,
+    "maxPoints": 100,
+    "weight": 0.25
+  },
+  {
+    "Id": 12,
+    "courseId": 4,
+    "assignmentId": null,
+    "category": "Programming Assignments",
+    "points": 92,
+    "maxPoints": 100,
+    "weight": 0.40
+  },
+  {
+    "Id": 13,
+    "courseId": 4,
+    "assignmentId": null,
+    "category": "Projects",
+    "points": 85,
+    "maxPoints": 100,
+    "weight": 0.35
+  },
+  {
+    "Id": 14,
+    "courseId": 4,
+    "assignmentId": null,
+    "category": "Final Exam",
+    "points": 88,
+    "maxPoints": 100,
+    "weight": 0.25
+  },
+  {
+    "Id": 15,
+    "courseId": 5,
+    "assignmentId": 9,
+    "category": "Projects",
+    "points": 92,
+    "maxPoints": 100,
+    "weight": 0.30
+  },
+  {
+    "Id": 16,
+    "courseId": 5,
+    "assignmentId": null,
+    "category": "Participation",
+    "points": 96,
+    "maxPoints": 100,
+    "weight": 0.20
+  },
+  {
+    "Id": 17,
+    "courseId": 5,
+    "assignmentId": null,
+    "category": "Midterm Exam",
+    "points": 84,
+    "maxPoints": 100,
+    "weight": 0.25
+  },
+  {
+    "Id": 18,
+    "courseId": 5,
+    "assignmentId": null,
+    "category": "Final Exam",
+    "points": 89,
+    "maxPoints": 100,
+    "weight": 0.25
+  }
+]
