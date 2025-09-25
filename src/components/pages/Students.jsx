@@ -28,10 +28,11 @@ export default function Students() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    major: '',
+major: '',
 year: '',
     gpa: '',
     mathsMarks: '',
+    scienceMarks: '',
     status: 'Active'
   })
 
@@ -91,8 +92,9 @@ setFormData(student ? {
       email: student.email || '', 
       major: student.major || '',
       year: student.year || '',
-      gpa: student.gpa || '',
+gpa: student.gpa || '',
       mathsMarks: student.mathsMarks || '',
+      scienceMarks: student.scienceMarks || '',
       status: student.status || 'Active'
     } : {
       name: '',
@@ -100,7 +102,8 @@ setFormData(student ? {
       major: '',
       year: '',
       gpa: '',
-      mathsMarks: '',
+mathsMarks: '',
+      scienceMarks: '',
       status: 'Active'
     })
     setShowModal(true)
@@ -116,6 +119,7 @@ setFormData(student ? {
       year: '',
 gpa: '',
       mathsMarks: '',
+      scienceMarks: '',
       status: 'Active'
     })
   }
@@ -323,6 +327,12 @@ if (formData.gpa && (isNaN(formData.gpa) || formData.gpa < 0 || formData.gpa > 4
                     <span className="font-medium">{student.mathsMarks}</span>
                   </div>
                 )}
+                {student.scienceMarks && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Science Marks:</span>
+                    <span className="font-medium">{student.scienceMarks}</span>
+                  </div>
+                )}
               </div>
               
               <div className="flex gap-2">
@@ -438,9 +448,20 @@ value={formData.year || ''}
                     value={formData.mathsMarks}
                     onChange={(e) => setFormData(prev => ({ ...prev, mathsMarks: e.target.value }))}
                     placeholder="Enter maths marks (0-100)"
-                  />
+/>
                 </div>
 
+                <div>
+                  <Label className="text-gray-700 font-medium mb-2">Science Marks</Label>
+                  <Input
+                    type="number"
+                    step="0.01"
+                    placeholder="Enter science marks"
+                    value={formData.scienceMarks}
+                    onChange={(e) => setFormData(prev => ({ ...prev, scienceMarks: e.target.value }))}
+                    className="w-full"
+                  />
+                </div>
                 <div>
                   <Label required>Status</Label>
                   <Select
