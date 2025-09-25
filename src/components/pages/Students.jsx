@@ -311,14 +311,15 @@ if (!formData.name || !formData.email || !formData.major || !formData.year || !f
                     <span className="font-medium">{student.gpa}</span>
                   </div>
                 )}
-                {student.mathsMarks && (
+{student.mathsMarks && (
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Maths Marks:</span>
                     <span className="font-medium">{student.mathsMarks}</span>
-)}
+</div>
+                )}
               </div>
-            </div>
-            <div className="flex gap-3 pt-4 border-t">
+              
+              <div className="flex gap-3 pt-4 border-t">
                 <Button
                   size="sm"
                   variant="outline"
