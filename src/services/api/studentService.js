@@ -145,8 +145,47 @@ name_c: studentData.name,
         }
         
         if (successful.length > 0) {
-          const created = successful[0].data
-const studentData = {
+const created = successful[0].data;
+          
+          // Create corresponding Stripe customer
+          try {
+            const { ApperClient } = window.ApperSDK;
+            const apperClient = new ApperClient({
+              apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+              apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+            });
+            
+            const stripeResult = await apperClient.functions.invoke(import.meta.env.VITE_CREATE_STRIPE_CUSTOMER, {
+              body: JSON.stringify({
+                email: created.email_c || '',
+                name: created.name_c || ''
+              }),
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            });
+            
+            if (stripeResult.success && stripeResult.data?.customerId) {
+              // Store Stripe customer ID in student record
+              const updateParams = {
+                records: [{
+                  Id: created.Id,
+                  stripe_customer_id_c: stripeResult.data.customerId
+                }]
+              };
+              
+              await apperClient.updateRecord('student_c', updateParams);
+              toast.success(`Student created successfully and linked to billing system`);
+            } else {
+              console.info(`apper_info: An error was received in this function: ${import.meta.env.VITE_CREATE_STRIPE_CUSTOMER}. The response body is: ${JSON.stringify(stripeResult)}.`);
+              toast.warning('Student created successfully, but billing setup encountered an issue');
+            }
+          } catch (stripeError) {
+            console.info(`apper_info: An error was received in this function: ${import.meta.env.VITE_CREATE_STRIPE_CUSTOMER}. The error is: ${stripeError.message}`);
+            toast.warning('Student created successfully, but billing integration failed');
+          }
+
+          const studentData = {
             Id: created.Id,
             name: created.name_c || '',
             email: created.email_c || '',
@@ -157,7 +196,6 @@ const studentData = {
             mathsMarks: created.maths_marks_c || '',
             status: created.status_c || 'Active'
           };
-
           // Check if maths marks are greater than 7.0 and send email
           if (created.maths_marks_c && created.maths_marks_c > 7.0) {
             try {
