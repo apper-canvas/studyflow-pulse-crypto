@@ -29,8 +29,10 @@ export default function Students() {
     name: '',
     email: '',
 major: '',
-year: '',
-gpa: '',
+    year: '',
+    gpa: '',
+    scienceMarks: '',
+    mathsMarks: '',
     status: '',
   });
 
@@ -87,17 +89,21 @@ const openModal = (student = null) => {
     setEditingStudent(student)
     setFormData(student ? { 
       name: student.name || '',
-      email: student.email || '', 
+email: student.email || '', 
       major: student.major || '',
       year: student.year || '',
       gpa: student.gpa || '',
+      scienceMarks: student.scienceMarks || '',
+      mathsMarks: student.mathsMarks || '',
       status: student.status || '',
     } : {
       name: '',
       email: '',
       major: '',
       year: '',
-      gpa: '',
+gpa: '',
+      scienceMarks: '',
+      mathsMarks: '',
       status: '',
     })
     setShowModal(true)
@@ -127,7 +133,10 @@ if (!formData.name || !formData.email || !formData.major || !formData.year || !f
       toast.error('GPA must be a number between 0 and 4')
       return
     }
-
+if (formData.scienceMarks && (isNaN(formData.scienceMarks) || formData.scienceMarks < 0 || formData.scienceMarks > 100)) {
+      toast.error('Science marks must be a number between 0 and 100')
+      return
+    }
 
     if (formData.mathsMarks && (isNaN(formData.mathsMarks) || formData.mathsMarks < 0 || formData.mathsMarks > 100)) {
       toast.error('Maths marks must be a number between 0 and 100')
@@ -406,9 +415,35 @@ value={formData.year || ''}
                       <option key={year} value={year}>{getYearDisplay(year)}</option>
                     ))}
                   </Select>
+</div>
+
+                <div>
+                  <Label>Science Marks (Optional)</Label>
+                  <Input
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="0.01"
+                    value={formData.scienceMarks}
+                    onChange={(e) => setFormData(prev => ({ ...prev, scienceMarks: e.target.value }))}
+                    placeholder="Enter science marks"
+                  />
                 </div>
 
-<div>
+                <div>
+                  <Label>Maths Marks (Optional)</Label>
+                  <Input
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="0.01"
+                    value={formData.mathsMarks}
+                    onChange={(e) => setFormData(prev => ({ ...prev, mathsMarks: e.target.value }))}
+                    placeholder="Enter maths marks"
+                  />
+                </div>
+
+                <div>
                   <Label>GPA (Optional)</Label>
                   <Input
                     type="number"
